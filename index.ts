@@ -2,6 +2,7 @@ import {app, BrowserWindow} from 'electron';
 import url = require('url');
 import path = require('path');
 import {log} from './logger';
+import {App} from './authorization';
 
 // retain a reference to the window, otherwise it gets gc-ed
 let w: Electron.BrowserWindow|null = null;
