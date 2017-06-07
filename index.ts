@@ -8,9 +8,9 @@ let w: Electron.BrowserWindow|null = null;
 
 function createWindow(): Electron.BrowserWindow {
   log('Creating window.');
-  w = new BrowserWindow({width: 800, height: 600});
+  w = new BrowserWindow({width: 1920, height: 1080});
   w.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(path.dirname(__dirname), 'index.html'),
     protocol: 'file:',
     slashes: true
   }));
