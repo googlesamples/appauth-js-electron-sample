@@ -1,0 +1,14 @@
+.DS_Store
+*~
+*.swp
+.idea
+*.iml
+npm-debug.log
+*.log
+*.stackdump
+
+node_modules/
+bower_components/
+tmp/
+*.google
+build/
