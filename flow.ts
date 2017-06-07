@@ -24,7 +24,7 @@ const scope = 'openid';
 // TODO(rahulrav@): Figure out a way to get rid of this
 const clientSecret = 'TyBOnDZtguEfaKDHAaZjRP7i';
 
-export class App {
+export class AuthFlow {
   private notifier: AuthorizationNotifier;
   private authorizationHandler: AuthorizationRequestHandler;
   private tokenHandler: TokenRequestHandler;
