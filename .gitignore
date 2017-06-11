@@ -11,4 +11,4 @@ node_modules/
 bower_components/
 tmp/
 *.google
-build/
+built/

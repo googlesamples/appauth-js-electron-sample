@@ -1,5 +1,5 @@
 import { AuthFlow } from './flow';
-import { AuthorizationServiceConfiguration } from '@openid/appauth/src/authorization_service_configuration';
+import { AuthorizationServiceConfiguration } from '@openid/appauth/built/authorization_service_configuration';
 
 export class App {
   private authFlow: AuthFlow = new AuthFlow();
@@ -14,8 +14,3 @@ export class App {
   }
 
 }
-
-// export app
-const app = new App();
-const anyWindow = window as any;
-anyWindow['App'] = app;

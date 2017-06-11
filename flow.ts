@@ -1,15 +1,15 @@
-import { AuthorizationRequest } from '@openid/appauth/src/authorization_request';
-import { AuthorizationNotifier, AuthorizationRequestHandler, AuthorizationRequestResponse, BUILT_IN_PARAMETERS } from '@openid/appauth/src/authorization_request_handler';
-import { AuthorizationResponse } from '@openid/appauth/src/authorization_response';
-import { AuthorizationServiceConfiguration } from '@openid/appauth/src/authorization_service_configuration';
-import { NodeBasedHandler } from '@openid/appauth/src/node_support/node_request_handler';
-import { NodeRequestor } from '@openid/appauth/src/node_support/node_requestor';
-import { GRANT_TYPE_AUTHORIZATION_CODE, GRANT_TYPE_REFRESH_TOKEN, TokenRequest } from '@openid/appauth/src/token_request';
-import { BaseTokenRequestHandler, TokenRequestHandler } from '@openid/appauth/src/token_request_handler';
-import { TokenError, TokenResponse } from '@openid/appauth/src/token_response';
+import { AuthorizationRequest } from '@openid/appauth/built/authorization_request';
+import { AuthorizationNotifier, AuthorizationRequestHandler, AuthorizationRequestResponse, BUILT_IN_PARAMETERS } from '@openid/appauth/built/authorization_request_handler';
+import { AuthorizationResponse } from '@openid/appauth/built/authorization_response';
+import { AuthorizationServiceConfiguration } from '@openid/appauth/built/authorization_service_configuration';
+import { NodeBasedHandler } from '@openid/appauth/built/node_support/node_request_handler';
+import { NodeRequestor } from '@openid/appauth/built/node_support/node_requestor';
+import { GRANT_TYPE_AUTHORIZATION_CODE, GRANT_TYPE_REFRESH_TOKEN, TokenRequest } from '@openid/appauth/built/token_request';
+import { BaseTokenRequestHandler, TokenRequestHandler } from '@openid/appauth/built/token_request_handler';
+import { TokenError, TokenResponse } from '@openid/appauth/built/token_response';
 
 import { log } from './logger';
-import { StringMap } from "@openid/appauth/src/types";
+import { StringMap } from "@openid/appauth/built/types";
 
 /* the Node.js based HTTP client. */
 const requestor = new NodeRequestor();

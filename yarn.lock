@@ -234,9 +234,9 @@
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@material/typography/-/typography-0.2.2.tgz#dc5f0763ad7d6e5ad5c86c394b360f2b4cf30bb2"
 
-"@openid/appauth@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@openid/appauth/-/appauth-0.1.3.tgz#60d15d7df578880aa6764b206dbb81e3ac4c0c9a"
+"@openid/appauth@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@openid/appauth/-/appauth-0.1.6.tgz#78e8ebf2f3a0f4b167d2ec21c3e4246592becc58"
   dependencies:
     form-data "^2.1.2"
     hapi "^16.1.0"
@@ -2186,13 +2186,13 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-safe-buffer@^5.0.1, safe-buffer@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.0.tgz#fe4c8460397f9eaaaa58e73be46273408a45e223"
-
-safe-buffer@~5.0.1:
+safe-buffer@^5.0.1, safe-buffer@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
+
+safe-buffer@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.0.tgz#fe4c8460397f9eaaaa58e73be46273408a45e223"
 
 "semver@2 || 3 || 4 || 5", semver@^5.3.0:
   version "5.3.0"
