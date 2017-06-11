@@ -4,8 +4,9 @@
   "description": "An AppAuth-JS sample with Electron",
   "main": "build/index.js",
   "scripts": {
-    "start": "tsc && node_modules/.bin/electron .",
-    "watch": "tsc --watch & node_modules/.bin/electron ."
+    "compile": "tsc",
+    "watch": "tsc --watch",
+    "start": "npm run-script compile && node_modules/.bin/electron ."
   },
   "keywords": [
     "AppAuth-JS",
@@ -19,7 +20,9 @@
     "@types/jquery": "^2.0.46",
     "@types/opener": "^1.4.0",
     "@types/request": "0.0.43",
+    "browserify": "^14.4.0",
     "electron": "^1.6.10",
-    "material-components-web": "^0.12.1"
+    "material-components-web": "^0.12.1",
+    "watchify": "^3.9.0"
   }
 }

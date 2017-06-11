@@ -1,4 +1,4 @@
-import {IS_LOG, IS_PROFILE} from './flags';
+import { IS_LOG, IS_PROFILE } from './flags';
 
 export function log(message: string, ...args: any[]) {
   if (IS_LOG) {
@@ -13,7 +13,7 @@ export function log(message: string, ...args: any[]) {
 
 // check to see if native support for profiling is available.
 const NATIVE_PROFILE_SUPPORT =
-    typeof window !== 'undefined' && !!window.performance && !!console.profile;
+  typeof window !== 'undefined' && !!window.performance && !!console.profile;
 
 /**
  * A decorator that can profile a function.
@@ -28,7 +28,7 @@ export function profile(target: any, propertyKey: string, descriptor: PropertyDe
 }
 
 function performProfile(
-    target: any, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor {
+  target: any, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor {
   let originalCallable = descriptor.value;
   // name must exist
   let name = originalCallable.name;
@@ -36,7 +36,7 @@ function performProfile(
     name = 'anonymous function';
   }
   if (NATIVE_PROFILE_SUPPORT) {
-    descriptor.value = function(...args: any[]) {
+    descriptor.value = function (...args: any[]) {
       console.profile(name);
       let startTime = window.performance.now();
       let result = originalCallable.call(this || window, ...args);
@@ -46,7 +46,7 @@ function performProfile(
       return result;
     };
   } else {
-    descriptor.value = function(...args: any[]) {
+    descriptor.value = function (...args: any[]) {
       log(`Profile start ${name}`);
       let start = Date.now();
       let result = originalCallable.call(this || window, ...args);
