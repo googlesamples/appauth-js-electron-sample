@@ -7,7 +7,6 @@
     "compile": "tsc",
     "compile-watch": "tsc --watch",
     "bundle": "node_modules/.bin/browserify built/app.js -o built/app-bundle.js",
-    "watch-bundle": "node_modules/.bin/watchify built/app.js -o built/app-bundle.js",
     "build": "npm run-script compile && npm run-script bundle",
     "start": "npm run-script build && node_modules/.bin/electron .",
     "dev": "npm run-script compile-watch & npm run-script watch-bundle & node_modules/.bin/electron ."
@@ -28,7 +27,6 @@
     "material-components-web": "^0.12.1"
   },
   "devDependencies": {
-    "browserify": "^14.4.0",
-    "watchify": "^3.9.0"
+    "browserify": "^14.4.0"
   }
 }

@@ -4,20 +4,24 @@
 <head>
   <title>AppAuth in Electron Shell</title>
   <link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="root">
-    <div class="mdc-card">
+    <div id="app-auth" class="mdc-card">
       <section class="mdc-card__primary">
         <h1 class="mdc-card__title mdc-card__title--large">AppAuthJS</h1>
         <h2 class="mdc-card__subtitle">This example shows how one can integrate AppAuthJS and Electron.</h2>
+      </section>
+      <section class="mdc-card__media">
+        <img src="assets/appauth_circle.png" />
       </section>
       <section class="mdc-card__supporting-text">
         For more information look source of the application at the following <a href="#">link</a>.
       </section>
       <section class="mdc-card__actions">
-        <button class="mdc-button mdc-button--compact mdc-card__action">More info</button>
+        <button id="handle-sign-in" class="mdc-button mdc-button--compact mdc-card__action"></button>
       </section>
     </div>
   </div>
@@ -28,7 +32,7 @@
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      console.log('Init complete');
+      require('./built/app');
     });
   </script>
 </body>

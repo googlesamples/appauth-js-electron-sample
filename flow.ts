@@ -7,9 +7,14 @@ import { NodeRequestor } from '@openid/appauth/built/node_support/node_requestor
 import { GRANT_TYPE_AUTHORIZATION_CODE, GRANT_TYPE_REFRESH_TOKEN, TokenRequest } from '@openid/appauth/built/token_request';
 import { BaseTokenRequestHandler, TokenRequestHandler } from '@openid/appauth/built/token_request_handler';
 import { TokenError, TokenResponse } from '@openid/appauth/built/token_response';
+import EventEmitter = require('events');
 
 import { log } from './logger';
 import { StringMap } from "@openid/appauth/built/types";
+
+export class AuthStateEmitter extends EventEmitter {
+  static ON_AUTHORIZATION_RESPONSE = 'on_authorization_response';
+}
 
 /* the Node.js based HTTP client. */
 const requestor = new NodeRequestor();
@@ -29,15 +34,17 @@ export class AuthFlow {
   private notifier: AuthorizationNotifier;
   private authorizationHandler: AuthorizationRequestHandler;
   private tokenHandler: TokenRequestHandler;
+  readonly authStateEmitter: AuthStateEmitter;
 
   // state
-  private configuration: AuthorizationServiceConfiguration | undefined;
+  private configuration: AuthorizationServiceConfiguration | null;
 
-  private refreshToken: string | undefined;
-  private accessTokenResponse: TokenResponse | undefined;
+  private refreshToken: string | null;
+  private accessTokenResponse: TokenResponse | null;
 
   constructor() {
     this.notifier = new AuthorizationNotifier();
+    this.authStateEmitter = new AuthStateEmitter();
     this.authorizationHandler = new NodeBasedHandler();
     this.tokenHandler = new BaseTokenRequestHandler(requestor);
     // set notifier to deliver responses
@@ -47,6 +54,7 @@ export class AuthFlow {
     this.notifier.setAuthorizationListener((request, response, error) => {
       log('Authorization request complete ', request, response, error);
       if (response) {
+        this.authStateEmitter.emit(AuthStateEmitter.ON_AUTHORIZATION_RESPONSE);
         this.makeRefreshTokenRequest(response.code)
           .then(result => this.performWithFreshTokens()
             .then(() => log('All done.')));
@@ -59,6 +67,7 @@ export class AuthFlow {
       .fetchFromIssuer(openIdConnectUrl, requestor)
       .then(response => {
         log('Fetched service configuration', response);
+        this.configuration = response;
       });
   }
 
@@ -106,6 +115,11 @@ export class AuthFlow {
 
   loggedIn(): boolean {
     return !!this.accessTokenResponse && this.accessTokenResponse.isValid();
+  }
+
+  signOut() {
+    // forget all cached token state
+    this.accessTokenResponse = null;
   }
 
   performWithFreshTokens(): Promise<string> {
