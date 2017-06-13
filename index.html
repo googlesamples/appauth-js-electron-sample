@@ -1,39 +1,49 @@
 <!DOCTYPE html>
-<html class="mdc-typography">
+<html>
 
 <head>
-  <title>AppAuth in Electron Shell</title>
-  <link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.min.css">
+  <title>AppAuth-JS with Electron</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="node_modules/material-design-lite/material.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="root">
-    <div id="app-auth" class="mdc-card">
+    <div class="app-auth-card mdl-card mdl-shadow--2dp">
       <section class="mdc-card__primary">
-        <h1 class="mdc-card__title mdc-card__title--large">AppAuthJS</h1>
-        <h2 class="mdc-card__subtitle">This example shows how one can integrate AppAuthJS and Electron.</h2>
+        <div class="mdl-card__title">
+          <h1 class="mdl-card__title-text">AppAuth-JS</h1>
+        </div>
+        <div class="flex-container">
+          <img class="appauth-logo" src="assets/appauth_circle.svg" />
+        </div>
       </section>
-      <section class="mdc-card__media">
-        <img src="assets/appauth_circle.svg" />
+      <section class="mdl-card__supporting-text">
+        This example shows how one can integrate AppAuthJS and Electron. For more information look source of the application at the
+        following <a href="https://github.com/openid/AppAuth-JS">https://github.com/openid/AppAuth-JS</a>.
       </section>
-      <section class="mdc-card__supporting-text">
-        For more information look source of the application at the following <a href="#">link</a>.
-      </section>
-      <section class="mdc-card__actions">
-        <button id="handle-sign-in" class="mdc-button mdc-button--compact mdc-card__action"></button>
-      </section>
+      <div class="mdl-card__actions mdl-card--border">
+        <button id="handle-sign-in" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Placeholder</button>
+        <button id="handle-user-info" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">User Info</button>
+      </div>
+    </div>
+    <div id="user-info" class="app-auth-card mdl-card mdl-shadow--2dp">
+      <div class="flex-container">
+        <img id="user-profile-image">
+        <div id="user-name" class="mdl-typography--headline"></div>
+      </div>
+    </div>
+    <!-- snackbar -->
+    <div id="appauth-snackbar" class="mdl-js-snackbar mdl-snackbar">
+      <div class="mdl-snackbar__text"></div>
+      <button class="mdl-snackbar__action" type="button"></button>
     </div>
   </div>
 
-  <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
-  <script>
-    mdc.autoInit()
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      require('./built/app');
-    });
+  <script src="node_modules/material-design-lite/material.min.js"></script>
+  <script type="text/javascript">
+    require('./built/app');
   </script>
 </body>
 

@@ -1,5 +1,38 @@
-#app-auth .mdc-card__media > img {
-  width: 256px;
-  height: 256px;
-  margin: auto;
+.app-auth-card.mdl-card {
+  margin: 2rem;
+  width: 80vw;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.appauth-logo {
+  flex-grow: 1;
+  background-color: #EFEFEF;
+  width: 40vw;
+  height: 40vw;
+}
+
+.app-auth-profile {
+  margin-top: 2rem;
+}
+
+#user-info {
+  height: auto;
+  min-height: auto;
+  padding: 1rem;
+}
+
+#user-name {
+  margin-left: 1rem;
+  align-self: center;
+}
+
+#user-profile-image {
+  align-self: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 3rem;
 }

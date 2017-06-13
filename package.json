@@ -6,9 +6,12 @@
   "scripts": {
     "compile": "tsc",
     "watch": "tsc --watch",
-    "start": "npm run-script build && node_modules/.bin/electron .",
+    "start": "npm run-script compile && node_modules/.bin/electron .",
     "dev": "npm run-script watch & node_modules/.bin/electron ."
   },
+  "files": [
+    "built/**"
+  ],
   "keywords": [
     "AppAuth-JS",
     "Electron"
@@ -22,7 +25,7 @@
     "@types/opener": "^1.4.0",
     "@types/request": "0.0.43",
     "electron": "^1.6.10",
-    "material-components-web": "^0.12.1"
+    "material-design-lite": "^1.3.0"
   },
   "devDependencies": {}
 }
