@@ -5,11 +5,9 @@
   "main": "built/index.js",
   "scripts": {
     "compile": "tsc",
-    "compile-watch": "tsc --watch",
-    "bundle": "node_modules/.bin/browserify built/app.js -o built/app-bundle.js",
-    "build": "npm run-script compile && npm run-script bundle",
+    "watch": "tsc --watch",
     "start": "npm run-script build && node_modules/.bin/electron .",
-    "dev": "npm run-script compile-watch & npm run-script watch-bundle & node_modules/.bin/electron ."
+    "dev": "npm run-script watch & node_modules/.bin/electron ."
   },
   "keywords": [
     "AppAuth-JS",
@@ -26,7 +24,5 @@
     "electron": "^1.6.10",
     "material-components-web": "^0.12.1"
   },
-  "devDependencies": {
-    "browserify": "^14.4.0"
-  }
+  "devDependencies": {}
 }
