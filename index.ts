@@ -8,7 +8,11 @@ let w: Electron.BrowserWindow | null = null;
 
 function createWindow(): Electron.BrowserWindow {
   log('Creating window.');
-  w = new BrowserWindow({ width: 1920, height: 1080 });
+  w = new BrowserWindow({
+    width: 1920,
+    height: 1080,
+    icon: 'assets/app_icon.png'
+  });
   w.loadURL(url.format({
     pathname: path.join(path.dirname(__dirname), 'index.html'),
     protocol: 'file:',
