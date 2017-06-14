@@ -1,14 +1,14 @@
-import {app, BrowserWindow} from 'electron';
+import { app, BrowserWindow } from 'electron';
 import url = require('url');
 import path = require('path');
-import {log} from './logger';
+import { log } from './logger';
 
 // retain a reference to the window, otherwise it gets gc-ed
-let w: Electron.BrowserWindow|null = null;
+let w: Electron.BrowserWindow | null = null;
 
 function createWindow(): Electron.BrowserWindow {
   log('Creating window.');
-  w = new BrowserWindow({width: 1920, height: 1080});
+  w = new BrowserWindow({ width: 1920, height: 1080 });
   w.loadURL(url.format({
     pathname: path.join(path.dirname(__dirname), 'index.html'),
     protocol: 'file:',
