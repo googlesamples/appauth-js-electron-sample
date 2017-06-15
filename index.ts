@@ -1,18 +1,15 @@
-import { app, BrowserWindow } from 'electron';
+import {app, BrowserWindow, ipcMain} from 'electron';
 import url = require('url');
 import path = require('path');
-import { log } from './logger';
+import {log} from './logger';
 
 // retain a reference to the window, otherwise it gets gc-ed
-let w: Electron.BrowserWindow | null = null;
+let w: Electron.BrowserWindow|null = null;
 
 function createWindow(): Electron.BrowserWindow {
   log('Creating window.');
-  w = new BrowserWindow({
-    width: 1920,
-    height: 1080,
-    icon: 'assets/app_icon.png'
-  });
+  w = new BrowserWindow(
+      {width: 1920, height: 1080, icon: 'assets/app_icon.png'});
   w.loadURL(url.format({
     pathname: path.join(path.dirname(__dirname), 'index.html'),
     protocol: 'file:',
@@ -23,6 +20,10 @@ function createWindow(): Electron.BrowserWindow {
   w.on('close', () => {
     // allow window to be gc-ed
     w = null;
+  });
+  ipcMain.on('app-focus', () => {
+    log('Main process is gaining focus');
+    app.focus();
   });
   return w;
 }
@@ -39,7 +40,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (window === null) {
+  if (w === null) {
     log('Creating a new window');
     w = createWindow();
   }
