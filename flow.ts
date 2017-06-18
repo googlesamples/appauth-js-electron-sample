@@ -24,11 +24,9 @@ const openIdConnectUrl = 'https://accounts.google.com';
 
 /* example client configuration */
 const clientId =
-    '511828570984-dhnshqcpegee66hgnp754dupe8sbas18.apps.googleusercontent.com';
+    '511828570984-7nmej36h9j2tebiqmpqh835naet4vci4.apps.googleusercontent.com';
 const redirectUri = 'http://localhost:8000';
 const scope = 'openid';
-// TODO(rahulrav@): Figure out a way to get rid of this
-const clientSecret = 'TyBOnDZtguEfaKDHAaZjRP7i';
 
 export class AuthFlow {
   private notifier: AuthorizationNotifier;
@@ -102,8 +100,7 @@ export class AuthFlow {
     }
     // use the code to make the token request.
     let request = new TokenRequest(
-        clientId, redirectUri, GRANT_TYPE_AUTHORIZATION_CODE, code, undefined,
-        {'client_secret': clientSecret});
+        clientId, redirectUri, GRANT_TYPE_AUTHORIZATION_CODE, code, undefined);
 
     return this.tokenHandler.performTokenRequest(this.configuration, request)
         .then(response => {
@@ -139,7 +136,7 @@ export class AuthFlow {
     }
     let request = new TokenRequest(
         clientId, redirectUri, GRANT_TYPE_REFRESH_TOKEN, undefined,
-        this.refreshToken, {'client_secret': clientSecret});
+        this.refreshToken);
     return this.tokenHandler.performTokenRequest(this.configuration, request)
         .then(response => {
           this.accessTokenResponse = response;
