@@ -1,6 +1,6 @@
 .app-auth-card.mdl-card {
   margin: 2rem;
-  width: 80vw;
+  width: 70vw;
 }
 
 .flex-container {
@@ -11,8 +11,8 @@
 .appauth-logo {
   flex-grow: 1;
   background-color: #EFEFEF;
-  width: 40vw;
-  height: 40vw;
+  width: 25vw;
+  height: 25vw;
 }
 
 .app-auth-profile {

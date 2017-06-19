@@ -9,14 +9,12 @@ let w: Electron.BrowserWindow|null = null;
 function createWindow(): Electron.BrowserWindow {
   log('Creating window.');
   w = new BrowserWindow(
-      {width: 1920, height: 1080, icon: 'assets/app_icon.png'});
+      {width: 1280, height: 720, icon: 'assets/app_icon.png'});
   w.loadURL(url.format({
     pathname: path.join(path.dirname(__dirname), 'index.html'),
     protocol: 'file:',
     slashes: true
   }));
-  // open dev tools
-  w.webContents.openDevTools();
   w.on('close', () => {
     // allow window to be gc-ed
     w = null;
