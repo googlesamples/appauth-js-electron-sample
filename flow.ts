@@ -25,7 +25,7 @@ const openIdConnectUrl = 'https://accounts.google.com';
 /* example client configuration */
 const clientId =
     '511828570984-7nmej36h9j2tebiqmpqh835naet4vci4.apps.googleusercontent.com';
-const redirectUri = 'http://localhost:8000';
+const redirectUri = 'http://127.0.0.1:8000';
 const scope = 'openid';
 
 export class AuthFlow {
