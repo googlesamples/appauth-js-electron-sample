@@ -53,7 +53,7 @@ export class AuthFlow {
   // state
   private configuration: AuthorizationServiceConfiguration|null;
 
-  private refreshToken: string|null;
+  private refreshToken: string|undefined;
   private accessTokenResponse: TokenResponse|null;
 
   constructor() {

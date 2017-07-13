@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@openid/appauth@^0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@openid/appauth/-/appauth-0.1.6.tgz#78e8ebf2f3a0f4b167d2ec21c3e4246592becc58"
+"@openid/appauth@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@openid/appauth/-/appauth-0.1.7.tgz#09359e3fb064e6213b052196c8b31077d235a06f"
   dependencies:
-    form-data "^2.1.2"
-    hapi "^16.1.0"
-    opener "^1.4.2"
-    request "^2.79.0"
-    typescript "^2.3.3"
+    form-data "^2.2.0"
+    hapi "^16.4.3"
+    opener "^1.4.3"
+    request "^2.81.0"
+    typescript "^2.4.1"
 
 "@types/boom@*":
   version "4.3.5"
@@ -28,9 +28,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/hapi@^16.1.2":
-  version "16.1.4"
-  resolved "https://registry.yarnpkg.com/@types/hapi/-/hapi-16.1.4.tgz#6caef0108fdb46cf121377b853db4ab902875bde"
+"@types/hapi@^16.1.6":
+  version "16.1.6"
+  resolved "https://registry.yarnpkg.com/@types/hapi/-/hapi-16.1.6.tgz#a55e0b201e69ca74a147776b3e1a464aa7b14c76"
   dependencies:
     "@types/boom" "*"
     "@types/catbox" "*"
@@ -44,9 +44,9 @@
   version "10.4.0"
   resolved "https://registry.yarnpkg.com/@types/joi/-/joi-10.4.0.tgz#a4de40cdf2462c7e1c83eb47ca3e19177bcc2ae8"
 
-"@types/jquery@^2.0.46":
-  version "2.0.46"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.46.tgz#c245426299b43c4bb75f44b813090bd5918d00f2"
+"@types/jquery@^3.2.7":
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.2.7.tgz#e91cb855096f328962c8e63194e7d2d36f1dce9b"
 
 "@types/mime-db@*":
   version "1.27.0"
@@ -72,9 +72,9 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/podium/-/podium-1.0.0.tgz#bfaa2151be2b1d6109cc69f7faa9dac2cba3bb20"
 
-"@types/request@0.0.43":
-  version "0.0.43"
-  resolved "https://registry.yarnpkg.com/@types/request/-/request-0.0.43.tgz#fcc59cfd88e63034e813c6884a0aade2d0f7e935"
+"@types/request@^0.0.46":
+  version "0.0.46"
+  resolved "https://registry.yarnpkg.com/@types/request/-/request-0.0.46.tgz#918fdfae249090d018901fc291ae4c4ceac30e6b"
   dependencies:
     "@types/form-data" "*"
     "@types/node" "*"
@@ -367,7 +367,15 @@ forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
 
-form-data@^2.1.2, form-data@~2.1.1:
+form-data@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.2.0.tgz#9a5e3b9295f980b2623cf64fa238b14cebca707b"
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.5"
+    mime-types "^2.1.12"
+
+form-data@~2.1.1:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.1.4.tgz#33c183acf193276ecaa98143a69e94bfee1750d1"
   dependencies:
@@ -414,7 +422,7 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-hapi@^16.1.0:
+hapi@^16.4.3:
   version "16.4.3"
   resolved "https://registry.yarnpkg.com/hapi/-/hapi-16.4.3.tgz#be4daaf2dcdbee97957ce503061b09765078aa05"
   dependencies:
@@ -755,7 +763,7 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-opener@^1.4.2:
+opener@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.4.3.tgz#5c6da2c5d7e5831e8ffa3964950f8d6674ac90b8"
 
@@ -907,7 +915,7 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
-request@^2.45.0, request@^2.79.0:
+request@^2.45.0, request@^2.81.0:
   version "2.81.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.81.0.tgz#c6928946a0e06c5f8d6f8a9333469ffda46298a0"
   dependencies:
@@ -1116,9 +1124,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.3.3:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
+typescript@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.1.tgz#c3ccb16ddaa0b2314de031e7e6fee89e5ba346bc"
 
 util-deprecate@~1.0.1:
   version "1.0.2"
