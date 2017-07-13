@@ -2,9 +2,11 @@
 
 This is an Electron Application, which uses the [AppAuth-JS](https://github.com/openid/AppAuth-JS) library.
 
+Please note that this is not an official Google product.
+
 ## Development
 
-This application has been written with [TypeScript](https://typescriptlang.org). 
+This application has been written with [TypeScript](https://typescriptlang.org).
 
 ### Setup
 
