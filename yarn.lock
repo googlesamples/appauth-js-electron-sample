@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@openid/appauth@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@openid/appauth/-/appauth-0.1.7.tgz#09359e3fb064e6213b052196c8b31077d235a06f"
+"@openid/appauth@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@openid/appauth/-/appauth-0.1.8.tgz#6d7b3f265eb49eaa62ea855d8d623c3f284c4135"
   dependencies:
     form-data "^2.2.0"
     hapi "^16.4.3"
