@@ -14,35 +14,50 @@
  * the License.
  */
 
-import {AuthorizationRequest} from '@openid/appauth/built/authorization_request';
-import {AuthorizationNotifier, AuthorizationRequestHandler, AuthorizationRequestResponse, BUILT_IN_PARAMETERS} from '@openid/appauth/built/authorization_request_handler';
-import {AuthorizationResponse} from '@openid/appauth/built/authorization_response';
-import {AuthorizationServiceConfiguration} from '@openid/appauth/built/authorization_service_configuration';
-import {NodeBasedHandler} from '@openid/appauth/built/node_support/node_request_handler';
-import {NodeRequestor} from '@openid/appauth/built/node_support/node_requestor';
-import {GRANT_TYPE_AUTHORIZATION_CODE, GRANT_TYPE_REFRESH_TOKEN, TokenRequest} from '@openid/appauth/built/token_request';
-import {BaseTokenRequestHandler, TokenRequestHandler} from '@openid/appauth/built/token_request_handler';
-import {TokenError, TokenResponse} from '@openid/appauth/built/token_response';
-import EventEmitter = require('events');
+import { AuthorizationRequest } from "@openid/appauth/built/authorization_request";
+import {
+  AuthorizationNotifier,
+  AuthorizationRequestHandler,
+  AuthorizationRequestResponse,
+  BUILT_IN_PARAMETERS
+} from "@openid/appauth/built/authorization_request_handler";
+import { AuthorizationResponse } from "@openid/appauth/built/authorization_response";
+import { AuthorizationServiceConfiguration } from "@openid/appauth/built/authorization_service_configuration";
+import { NodeBasedHandler } from "@openid/appauth/built/node_support/node_request_handler";
+import { NodeRequestor } from "@openid/appauth/built/node_support/node_requestor";
+import {
+  GRANT_TYPE_AUTHORIZATION_CODE,
+  GRANT_TYPE_REFRESH_TOKEN,
+  TokenRequest
+} from "@openid/appauth/built/token_request";
+import {
+  BaseTokenRequestHandler,
+  TokenRequestHandler
+} from "@openid/appauth/built/token_request_handler";
+import {
+  TokenError,
+  TokenResponse
+} from "@openid/appauth/built/token_response";
+import EventEmitter = require("events");
 
-import {log} from './logger';
-import {StringMap} from '@openid/appauth/built/types';
+import { log } from "./logger";
+import { StringMap } from "@openid/appauth/built/types";
 
 export class AuthStateEmitter extends EventEmitter {
-  static ON_TOKEN_RESPONSE = 'on_token_response';
+  static ON_TOKEN_RESPONSE = "on_token_response";
 }
 
 /* the Node.js based HTTP client. */
 const requestor = new NodeRequestor();
 
 /* an example open id connect provider */
-const openIdConnectUrl = 'https://accounts.google.com';
+const openIdConnectUrl = "https://accounts.google.com";
 
 /* example client configuration */
 const clientId =
-    '511828570984-7nmej36h9j2tebiqmpqh835naet4vci4.apps.googleusercontent.com';
-const redirectUri = 'http://127.0.0.1:8000';
-const scope = 'openid';
+  "511828570984-7nmej36h9j2tebiqmpqh835naet4vci4.apps.googleusercontent.com";
+const redirectUri = "http://127.0.0.1:8000";
+const scope = "openid";
 
 export class AuthFlow {
   private notifier: AuthorizationNotifier;
@@ -51,10 +66,10 @@ export class AuthFlow {
   readonly authStateEmitter: AuthStateEmitter;
 
   // state
-  private configuration: AuthorizationServiceConfiguration|null;
+  private configuration: AuthorizationServiceConfiguration | undefined;
 
-  private refreshToken: string|undefined;
-  private accessTokenResponse: TokenResponse|null;
+  private refreshToken: string | undefined;
+  private accessTokenResponse: TokenResponse | undefined;
 
   constructor() {
     this.notifier = new AuthorizationNotifier();
@@ -66,66 +81,80 @@ export class AuthFlow {
     // set a listener to listen for authorization responses
     // make refresh and access token requests.
     this.notifier.setAuthorizationListener((request, response, error) => {
-      log('Authorization request complete ', request, response, error);
+      log("Authorization request complete ", request, response, error);
       if (response) {
         this.makeRefreshTokenRequest(response.code)
-            .then(result => this.performWithFreshTokens())
-            .then(() => {
-              this.authStateEmitter.emit(AuthStateEmitter.ON_TOKEN_RESPONSE);
-              log('All Done.');
-            })
+          .then(result => this.performWithFreshTokens())
+          .then(() => {
+            this.authStateEmitter.emit(AuthStateEmitter.ON_TOKEN_RESPONSE);
+            log("All Done.");
+          });
       }
     });
   }
 
   fetchServiceConfiguration(): Promise<void> {
-    return AuthorizationServiceConfiguration
-        .fetchFromIssuer(openIdConnectUrl, requestor)
-        .then(response => {
-          log('Fetched service configuration', response);
-          this.configuration = response;
-        });
+    return AuthorizationServiceConfiguration.fetchFromIssuer(
+      openIdConnectUrl,
+      requestor
+    ).then(response => {
+      log("Fetched service configuration", response);
+      this.configuration = response;
+    });
   }
 
   makeAuthorizationRequest(username?: string) {
     if (!this.configuration) {
-      log('Unknown service configuration');
+      log("Unknown service configuration");
       return;
     }
 
-    const extras: StringMap = {'prompt': 'consent', 'access_type': 'offline'};
+    const extras: StringMap = { prompt: "consent", access_type: "offline" };
     if (username) {
-      extras['login_hint'] = username;
+      extras["login_hint"] = username;
     }
 
     // create a request
     const request = new AuthorizationRequest(
-        clientId, redirectUri, scope, AuthorizationRequest.RESPONSE_TYPE_CODE,
-        undefined /* state */, extras);
+      clientId,
+      redirectUri,
+      scope,
+      AuthorizationRequest.RESPONSE_TYPE_CODE,
+      undefined /* state */,
+      extras
+    );
 
-    log('Making authorization request ', this.configuration, request);
+    log("Making authorization request ", this.configuration, request);
 
     this.authorizationHandler.performAuthorizationRequest(
-        this.configuration, request);
+      this.configuration,
+      request
+    );
   }
 
   private makeRefreshTokenRequest(code: string): Promise<void> {
     if (!this.configuration) {
-      log('Unknown service configuration');
+      log("Unknown service configuration");
       return Promise.resolve();
     }
     // use the code to make the token request.
     let request = new TokenRequest(
-        clientId, redirectUri, GRANT_TYPE_AUTHORIZATION_CODE, code, undefined);
+      clientId,
+      redirectUri,
+      GRANT_TYPE_AUTHORIZATION_CODE,
+      code,
+      undefined
+    );
 
-    return this.tokenHandler.performTokenRequest(this.configuration, request)
-        .then(response => {
-          log(`Refresh Token is ${response.refreshToken}`);
-          this.refreshToken = response.refreshToken;
-          this.accessTokenResponse = response;
-          return response;
-        })
-        .then(() => {});
+    return this.tokenHandler
+      .performTokenRequest(this.configuration, request)
+      .then(response => {
+        log(`Refresh Token is ${response.refreshToken}`);
+        this.refreshToken = response.refreshToken;
+        this.accessTokenResponse = response;
+        return response;
+      })
+      .then(() => {});
   }
 
   loggedIn(): boolean {
@@ -134,29 +163,34 @@ export class AuthFlow {
 
   signOut() {
     // forget all cached token state
-    this.accessTokenResponse = null;
+    this.accessTokenResponse = undefined;
   }
 
   performWithFreshTokens(): Promise<string> {
     if (!this.configuration) {
-      log('Unknown service configuration');
-      return Promise.reject('Unknown service configuration');
+      log("Unknown service configuration");
+      return Promise.reject("Unknown service configuration");
     }
     if (!this.refreshToken) {
-      log('Missing refreshToken.');
-      return Promise.resolve('Missing refreshToken.');
+      log("Missing refreshToken.");
+      return Promise.resolve("Missing refreshToken.");
     }
     if (this.accessTokenResponse && this.accessTokenResponse.isValid()) {
       // do nothing
       return Promise.resolve(this.accessTokenResponse.accessToken);
     }
     let request = new TokenRequest(
-        clientId, redirectUri, GRANT_TYPE_REFRESH_TOKEN, undefined,
-        this.refreshToken);
-    return this.tokenHandler.performTokenRequest(this.configuration, request)
-        .then(response => {
-          this.accessTokenResponse = response;
-          return response.accessToken;
-        });
+      clientId,
+      redirectUri,
+      GRANT_TYPE_REFRESH_TOKEN,
+      undefined,
+      this.refreshToken
+    );
+    return this.tokenHandler
+      .performTokenRequest(this.configuration, request)
+      .then(response => {
+        this.accessTokenResponse = response;
+        return response.accessToken;
+      });
   }
 }
