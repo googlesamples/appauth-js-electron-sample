@@ -19,13 +19,13 @@
   "author": "rahulrav",
   "license": "MIT",
   "dependencies": {
-    "@openid/appauth": "^0.3.5",
-    "@types/react": "^16.3.17",
-    "@types/react-dom": "^16.0.6",
-    "electron": "^2.0.2",
+    "@openid/appauth": "^1.1.1",
+    "@types/react": "^16.7.1",
+    "@types/react-dom": "^16.0.9",
+    "electron": "^3.0.8",
     "material-design-lite": "^1.3.0"
   },
   "devDependencies": {
-    "typescript": "^2.9.1"
+    "typescript": "^3.1.6"
   }
 }
