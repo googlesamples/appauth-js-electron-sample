@@ -85,7 +85,6 @@ export class AuthFlow {
       log("Authorization request complete ", request, response, error);
       if (response) {
         let codeVerifier: string | undefined;
-
         if(request.internal && request.internal.code_verifier) {
           codeVerifier = request.internal.code_verifier;
         }
@@ -139,7 +138,7 @@ export class AuthFlow {
     );
   }
 
-  private makeRefreshTokenRequest(code: string, codeVerifier?: string): Promise<void> {
+  private makeRefreshTokenRequest(code: string, codeVerifier: string|undefined): Promise<void> {
     if (!this.configuration) {
       log("Unknown service configuration");
       return Promise.resolve();
