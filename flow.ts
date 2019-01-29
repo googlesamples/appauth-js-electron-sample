@@ -23,6 +23,7 @@ import {
 } from "@openid/appauth/built/authorization_request_handler";
 import { AuthorizationResponse } from "@openid/appauth/built/authorization_response";
 import { AuthorizationServiceConfiguration } from "@openid/appauth/built/authorization_service_configuration";
+import { NodeCrypto } from '@openid/appauth/built/node_support/';
 import { NodeBasedHandler } from "@openid/appauth/built/node_support/node_request_handler";
 import { NodeRequestor } from "@openid/appauth/built/node_support/node_requestor";
 import {
@@ -83,7 +84,12 @@ export class AuthFlow {
     this.notifier.setAuthorizationListener((request, response, error) => {
       log("Authorization request complete ", request, response, error);
       if (response) {
-        this.makeRefreshTokenRequest(response.code)
+        let codeVerifier: string | undefined;
+        if(request.internal && request.internal.code_verifier) {
+          codeVerifier = request.internal.code_verifier;
+        }
+
+        this.makeRefreshTokenRequest(response.code, codeVerifier)
           .then(result => this.performWithFreshTokens())
           .then(() => {
             this.authStateEmitter.emit(AuthStateEmitter.ON_TOKEN_RESPONSE);
@@ -115,14 +121,14 @@ export class AuthFlow {
     }
 
     // create a request
-    const request = new AuthorizationRequest(
-      clientId,
-      redirectUri,
-      scope,
-      AuthorizationRequest.RESPONSE_TYPE_CODE,
-      undefined /* state */,
-      extras
-    );
+    const request = new AuthorizationRequest({
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      scope: scope,
+      response_type: AuthorizationRequest.RESPONSE_TYPE_CODE,
+      state: undefined,
+      extras: extras
+    }, new NodeCrypto());
 
     log("Making authorization request ", this.configuration, request);
 
@@ -132,19 +138,27 @@ export class AuthFlow {
     );
   }
 
-  private makeRefreshTokenRequest(code: string): Promise<void> {
+  private makeRefreshTokenRequest(code: string, codeVerifier: string|undefined): Promise<void> {
     if (!this.configuration) {
       log("Unknown service configuration");
       return Promise.resolve();
     }
+
+    const extras: StringMap = {};
+
+    if(codeVerifier) {
+      extras.code_verifier = codeVerifier;
+    }
+
     // use the code to make the token request.
-    let request = new TokenRequest(
-      clientId,
-      redirectUri,
-      GRANT_TYPE_AUTHORIZATION_CODE,
-      code,
-      undefined
-    );
+    let request = new TokenRequest({
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      grant_type: GRANT_TYPE_AUTHORIZATION_CODE,
+      code: code,
+      refresh_token: undefined,
+      extras: extras
+    });
 
     return this.tokenHandler
       .performTokenRequest(this.configuration, request)
@@ -179,13 +193,15 @@ export class AuthFlow {
       // do nothing
       return Promise.resolve(this.accessTokenResponse.accessToken);
     }
-    let request = new TokenRequest(
-      clientId,
-      redirectUri,
-      GRANT_TYPE_REFRESH_TOKEN,
-      undefined,
-      this.refreshToken
-    );
+    let request = new TokenRequest({
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      grant_type: GRANT_TYPE_REFRESH_TOKEN,
+      code: undefined,
+      refresh_token: this.refreshToken,
+      extras: undefined
+    });
+
     return this.tokenHandler
       .performTokenRequest(this.configuration, request)
       .then(response => {
