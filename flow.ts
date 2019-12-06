@@ -55,9 +55,10 @@ const requestor = new NodeRequestor();
 const openIdConnectUrl = "https://accounts.google.com";
 
 /* example client configuration */
+const PORT = 8000;
 const clientId =
   "511828570984-7nmej36h9j2tebiqmpqh835naet4vci4.apps.googleusercontent.com";
-const redirectUri = "http://127.0.0.1:8000";
+const redirectUri = `http://127.0.0.1:${PORT}`;
 const scope = "openid";
 
 export class AuthFlow {
@@ -75,7 +76,7 @@ export class AuthFlow {
   constructor() {
     this.notifier = new AuthorizationNotifier();
     this.authStateEmitter = new AuthStateEmitter();
-    this.authorizationHandler = new NodeBasedHandler();
+    this.authorizationHandler = new NodeBasedHandler(PORT);
     this.tokenHandler = new BaseTokenRequestHandler(requestor);
     // set notifier to deliver responses
     this.authorizationHandler.setAuthorizationNotifier(this.notifier);
